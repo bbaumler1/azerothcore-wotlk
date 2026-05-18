@@ -23,7 +23,9 @@
 
 #ifndef _ACORE_GEOMETRY_H
 #define _ACORE_GEOMETRY_H
+#define _USE_MATH_DEFINES
 
+#include <cmath>
 #include <cstdlib>
 #include <math.h>
 

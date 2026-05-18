@@ -183,6 +183,7 @@ enum PlayerHook
     PLAYERHOOK_CAN_ENTER_MAP,
     PLAYERHOOK_CAN_INIT_TRADE,
     PLAYERHOOK_CAN_SET_TRADE_ITEM,
+    PLAYERHOOK_ON_GIFT_ITEM_BY_TRADE,
     PLAYERHOOK_ON_SET_SERVER_SIDE_VISIBILITY,
     PLAYERHOOK_ON_SET_SERVER_SIDE_VISIBILITY_DETECT,
     PLAYERHOOK_ON_PLAYER_RESURRECT,
@@ -630,6 +631,8 @@ public:
      * @return True if you want to continue setting the item in the trade slot, false if you want to cancel the trade
      */
     [[nodiscard]] virtual bool OnPlayerCanSetTradeItem(Player* /*player*/, Item* /*tradedItem*/, uint8 /*tradeSlot*/) { return true; }
+
+    virtual void OnPlayerGiftItemByTrade(Player* /*giver*/, Player* /*receiver*/, Item* /*item*/, uint32 /*count*/) { }
 
     virtual void OnPlayerSetServerSideVisibility(Player* /*player*/, ServerSideVisibilityType& /*type*/, AccountTypes& /*sec*/) { }
 

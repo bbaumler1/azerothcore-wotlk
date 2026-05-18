@@ -505,6 +505,16 @@ void WorldSession::HandleAcceptTradeOpcode(WorldPacket& /*recvPacket*/)
             }
         }
 
+        // Notify scripts before storing — item pointers are valid here but may be
+        // invalidated by MoveItemToInventory (stack merging) inside moveItems().
+        for (uint8 i = 0; i < TRADE_SLOT_TRADED_COUNT; ++i)
+        {
+            if (myItems[i])
+                sScriptMgr->OnPlayerGiftItemByTrade(_player, trader, myItems[i], myItems[i]->GetCount());
+            if (hisItems[i])
+                sScriptMgr->OnPlayerGiftItemByTrade(trader, _player, hisItems[i], hisItems[i]->GetCount());
+        }
+
         // execute trade: 2. store
         moveItems(myItems, hisItems);
 
