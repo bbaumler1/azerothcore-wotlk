@@ -111,7 +111,32 @@ foreach(APPLICATION_NAME ${APPLICATIONS_BUILD_LIST})
     endif()
 
     if (MSVC)
-      list(APPEND APP_PRIVATE_SOURCES ${SOURCE_APP_PATH}/${APPLICATION_NAME}.rc)
+      # Precompile the .rc to a .res via a direct rc.exe invocation instead of letting
+      # MSBuild auto-generate a ResourceCompile item for it. MSBuild's ResourceCompile
+      # item always inherits this target's full C++ include-directory list (game/scripts/
+      # modules/deps — tens of KB once every statically-linked module is counted) via a
+      # trailing %(AdditionalIncludeDirectories) token that CMake cannot be told to omit
+      # (confirmed: overriding the per-source INCLUDE_DIRECTORIES property still leaves
+      # that token in place), which pushes rc.exe's command line past MSBuild's ~32000-char
+      # practical limit and fails with MSB6003 ("filename or extension is too long"). The
+      # .rc file only needs resource.h (this source dir), the generated revision.h (top-
+      # level build dir), and AC_BUILD_HAS_DEBUG_INFO (normally inherited via
+      # acore-compile-option-interface, see ConfigureBaseTargets.cmake) — a custom command
+      # sidesteps MSBuild's automatic item generation entirely, so only those are passed.
+      set(APP_RC_SOURCE ${SOURCE_APP_PATH}/${APPLICATION_NAME}.rc)
+      set(APP_RES_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${APPLICATION_NAME}.res)
+      add_custom_command(
+        OUTPUT ${APP_RES_OUTPUT}
+        COMMAND ${CMAKE_RC_COMPILER}
+          /I${SOURCE_APP_PATH}
+          /I${CMAKE_BINARY_DIR}
+          "/DAC_BUILD_HAS_DEBUG_INFO=$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>"
+          /fo${APP_RES_OUTPUT}
+          ${APP_RC_SOURCE}
+        DEPENDS ${APP_RC_SOURCE} ${CMAKE_BINARY_DIR}/revision.h
+        COMMENT "RC ${APPLICATION_NAME}.rc"
+        VERBATIM)
+      list(APPEND APP_PRIVATE_SOURCES ${APP_RES_OUTPUT})
     endif()
   endif()
 
