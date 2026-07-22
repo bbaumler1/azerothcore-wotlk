@@ -9,6 +9,11 @@ This changelog uses semantic-style versions: `MAJOR.MINOR.PATCH`.
 
 ## Unreleased
 
+### Documentation
+
+- Added a near-term, evidence-driven roadmap for the next Caincraft
+  PlayerBots and AzerothCore/data improvements.
+
 ## 0.2.1 - 2026-07-22
 
 ### Fixed
