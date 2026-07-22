@@ -333,6 +333,7 @@ public: /* PlayerScript */
     void OnPlayerAfterSpecSlotChanged(Player* player, uint8 newSlot);
     void OnPlayerMoneyChanged(Player* player, int32& amount);
     void OnPlayerBeforeLootMoney(Player* player, Loot* loot);
+    void OnPlayerBeforeSendLoot(Player* player, ObjectGuid lootGuid, Loot* loot);
     void OnPlayerGiveXP(Player* player, uint32& amount, Unit* victim, uint8 xpSource);
     bool OnPlayerReputationChange(Player* player, uint32 factionID, int32& standing, bool incremental);
     void OnPlayerReputationRankChange(Player* player, uint32 factionID, ReputationRank newRank, ReputationRank oldRank, bool increased);
@@ -476,6 +477,7 @@ public: /* PlayerScript */
     void OnPlayerEnterCombat(Player* player, Unit* enemy);
     void OnPlayerLeaveCombat(Player* player);
     void OnPlayerQuestAbandon(Player* player, uint32 questId);
+    void OnPlayerQuestAccept(Player* player, Quest const* quest);
     bool OnPlayerCanSendErrorAlreadyLooted(Player* player);
     void OnPlayerAfterCreatureLoot(Player* player);
     void OnPlayerAfterCreatureLootMoney(Player* player);
@@ -483,6 +485,7 @@ public: /* PlayerScript */
     bool OnPlayerCanUpdateSkill(Player* player, uint32 skillId);
     void OnPlayerBeforeUpdateSkill(Player* player, uint32 skill_id, uint32& value, uint32 max, uint32 step);
     void OnPlayerUpdateSkill(Player* player, uint32 skillId, uint32 value, uint32 max, uint32 step, uint32 newValue);
+    void OnPlayerSetSkill(Player* player, uint32 skillId, uint32 value, uint32 max, uint32 step, uint32 newValue);
     bool OnPlayerCanResurrect(Player* player);
     bool OnPlayerCanGiveLevel(Player* player, uint8 newLevel);
     void OnPlayerSendListInventory(Player* player, ObjectGuid vendorGuid, uint32& vendorEntry);
@@ -583,6 +586,7 @@ public: /* UnitScript */
     void OnDisplayIdChange(Unit* unit, uint32 displayId);
     void OnUnitEnterEvadeMode(Unit* unit, uint8 why);
     void OnUnitEnterCombat(Unit* unit, Unit* victim);
+    void OnUnitExitCombat(Unit* unit);
     void OnUnitDeath(Unit* unit, Unit* killer);
     void OnUnitSetShapeshiftForm(Unit* unit, uint8 form);
 
@@ -610,6 +614,7 @@ public: /* BattlefieldScript */
     void OnBattlefieldPlayerLeaveWar(Battlefield* bf, Player* player);
     void OnBattlefieldBeforeInvitePlayerToWar(Battlefield* bf, Player* player);
     void OnBattlefieldWarEnd(Battlefield* bf, bool endByTimer);
+    void OnBattlefieldPlayerKill(Battlefield* bf, Player* killer, Player* victim);
 
 public: /* BGScript */
     void OnBattlegroundStart(Battleground* bg);
