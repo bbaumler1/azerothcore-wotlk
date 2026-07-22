@@ -30,6 +30,11 @@ This changelog uses semantic-style versions: `MAJOR.MINOR.PATCH`.
 - Built `worldserver` successfully in `RelWithDebInfo` and completed a
   start-to-ready smoke test with 2,112 PlayerBots initialized.
 
+### Published
+
+- Published matching `caincraft/playerbot-sync-20260722` branches to the Caincraft
+  core and PlayerBots module forks.
+
 ## 0.1.0 - 2026-07-22
 
 ### Added

@@ -39,6 +39,14 @@ the absent upstream defaults were appended. Existing Caincraft values were not
 changed. The active configuration now has zero missing keys relative to both
 new `.conf.dist` templates.
 
+## Publication
+
+- Core branch published: `bbaumler1/azerothcore-wotlk` /
+  `caincraft/playerbot-sync-20260722`.
+- Matching module branch published: `bbaumler1/mod-playerbots` /
+  `caincraft/playerbot-sync-20260722`.
+- The module checkout now uses the personal fork as `origin` and the official
+  `mod-playerbots/mod-playerbots` repository as `upstream`.
 ## Known follow-up items
 
 - The user-facing in-game Hunter melee validation remains a separate,
@@ -47,6 +55,3 @@ new `.conf.dist` templates.
 - The `condition`-table spell IDs and one SmartAI warning seen at startup
   predate this synchronization. They are a future data-quality investigation,
   not a PlayerBots startup failure.
-- The nested module checkout currently points to the official remote. Add the
-  user's GitHub module fork as a separate remote before publishing this branch;
-  never push it to the official repository.
