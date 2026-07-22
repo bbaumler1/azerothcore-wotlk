@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft implementation note.
+Implemented on 2026-07-22. Build and server-startup smoke tests passed; in-game combat scenarios remain pending.
 
 ## Objective
 
@@ -164,6 +164,17 @@ has normal starter equipment and spells.
 
 Record character level, learned spells, whether the bot is solo/grouped, target
 type, and observed action sequence for each case.
+
+## Implementation Record
+
+- Module commit: `4a5a9e7b` (`fix(hunter): restore low-level melee fallback`).
+- Source scope: `GenericHunterStrategy.cpp` only; added `raptor strike` at
+  priority `20.5f` and `melee` at `20.0f` under `enemy within melee`.
+- Build: `worldserver` compiled and linked successfully in `RelWithDebInfo`.
+- Startup smoke test: PlayerBots initialized successfully and the server reached
+  ready state with no fatal/error log matches.
+- Remaining acceptance work: perform and record the in-game scenarios above,
+  beginning with a level-1 Hunter versus an ordinary melee creature.
 
 ## Completion Criteria
 

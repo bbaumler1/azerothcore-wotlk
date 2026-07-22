@@ -9,6 +9,18 @@ This changelog uses semantic-style versions: `MAJOR.MINOR.PATCH`.
 
 ## Unreleased
 
+## 0.2.1 - 2026-07-22
+
+### Fixed
+
+- Added low-level Hunter close-range fallbacks: Raptor Strike when usable and
+  normal melee otherwise, after existing trap/Mongoose Bite/Wing Clip actions.
+
+### Verified
+
+- Built and startup-smoke-tested the PlayerBots module; in-game Hunter combat
+  acceptance scenarios remain pending.
+
 ### Documentation
 
 - Established Caincraft's PlayerBots and AzerothCore guiding principles,
