@@ -77,8 +77,15 @@ foreach(SOURCE_MODULE ${MODULES_MODULE_LIST})
     set(${MODULE_MODULE_VARIABLE} "static")
   endif()
 
-  # Use only static for mod-ALE
-  if (SOURCE_MODULE MATCHES "mod-ale")
+  # Use only static for mod-ALE. This checkout's module directory is named
+  # "mod-eluna" (a common alternate name for the same module across forks),
+  # which the original "mod-ale"-only pattern never matched — silently
+  # skipping ConfigureALEModule() and, downstream, the `target_link_libraries
+  # (modules PUBLIC lualib)` call gated on MOD_ALE_FOUND. lualib itself still
+  # built fine (mod-eluna's own CMakeLists.txt adds it unconditionally), it
+  # was just never linked, hence dozens of unresolved lua_*/luaL_* externals
+  # at the worldserver link step. Matching both names fixes it.
+  if (SOURCE_MODULE MATCHES "mod-ale" OR SOURCE_MODULE MATCHES "mod-eluna")
     ConfigureALEModule(${SOURCE_MODULE})
   endif()
 
